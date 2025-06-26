@@ -51,22 +51,18 @@ function createContentCard(item, mediaType) {
 
 async function loadStoredContent(key, gridContainer, emptyMessageElement) {
     const items = getStoredItems(key);
-
     if (items.length === 0) {
         emptyMessageElement.classList.remove('hidden');
         return;
     }
     emptyMessageElement.classList.add('hidden');
-    gridContainer.innerHTML = ''; // Clear the container
-
-    // Fetch details for all items
+    gridContainer.innerHTML = '';
     const promises = items.map(item => {
         const url = `${apiUrl}/${item.type}/${item.id}?api_key=${apiKey}`;
         return fetch(url).then(res => res.json());
     });
     
     const results = await Promise.all(promises);
-
     results.forEach((detail, index) => {
         if (detail && detail.id) {
             const mediaType = items[index].type;
@@ -76,8 +72,6 @@ async function loadStoredContent(key, gridContainer, emptyMessageElement) {
     });
 }
 
-
-// --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
     loadStoredContent(FAVORITES_KEY, favoritesGrid, noFavoritesMessage);
     loadStoredContent(LIKES_KEY, likesGrid, noLikesMessage);

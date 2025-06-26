@@ -1,0 +1,88 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #111827;
+}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #1F2937; }
+::-webkit-scrollbar-thumb { background: #4B5563; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #6B7280; }
+
+.card-overlay { 
+    transition: background-color 0.3s ease; 
+}
+.card:hover .card-overlay { 
+    background-color: rgba(0, 0, 0, 0.7); 
+}
+.card .play-button { 
+    opacity: 0; 
+    transition: opacity 0.3s ease; 
+}
+.card:hover .play-button { 
+    opacity: 1; 
+}
+
+.aspect-w-2 { 
+    aspect-ratio: 2 / 3; 
+}
+.aspect-w-16 { 
+    aspect-ratio: 16 / 9; 
+}
+
+.nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.favorite-btn, .like-btn {
+    background-color: transparent;
+    border: none;
+    color: #9CA3AF;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+.favorite-btn:hover, .like-btn:hover {
+    color: white;
+}
+.favorite-btn.active {
+    color: #F87171;
+    transform: scale(1.1);
+}
+.like-btn.active {
+    color: #3B82F6;
+    transform: scale(1.1);
+}
+
+.filter-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    background-color: #374151;
+    color: #F9FAFB;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    border: 2px solid transparent;
+    white-space: nowrap;
+}
+.filter-btn:hover {
+    background-color: #4B5563;
+}
+.filter-btn.active {
+    background-color: #EF4444;
+    color: white;
+    border-color: #F87171;
+}
+
+/* New Rating Badge Style */
+.rating-badge {
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.rating-badge svg {
+    margin-right: 0.25rem;
+}

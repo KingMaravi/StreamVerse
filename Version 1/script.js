@@ -4,17 +4,19 @@ const apiUrl = 'https://api.themoviedb.org/3';
 const posterBasePath = 'https://image.tmdb.org/t/p/w500';
 const placeholderImage = 'https://placehold.co/500x750/1F2937/FFFFFF?text=No+Image';
 
-// --- PATCH NOTES CONFIG ---
-const PATCH_NOTES_VERSION = '1.6.0';
-const PATCH_NOTES_KEY = 'streamverse-patch-notes-seen';
-
 // --- DOM ELEMENTS ---
+const searchInput = document.getElementById('searchInput');
+const searchButton = document.getElementById('searchButton');
+const searchTypeSelect = document.getElementById('searchType');
+const mainContent = document.getElementById('mainContent');
+const searchResultsSection = document.getElementById('searchResults');
+const searchResultsGrid = document.getElementById('searchResultsGrid');
+const featuredMoviesSection = document.getElementById('featuredMovies');
+const featuredTvShowsSection = document.getElementById('featuredTvShows');
 const featuredMoviesGrid = document.getElementById('featuredMoviesGrid');
 const featuredTvShowsGrid = document.getElementById('featuredTvShowsGrid');
-const patchNotesModal = document.getElementById('patchNotesModal');
-const closePatchNotes = document.getElementById('closePatchNotes');
-const dontShowAgainCheckbox = document.getElementById('dontShowAgain');
-
+const movieFilters = document.getElementById('movieFilters');
+const tvFilters = document.getElementById('tvFilters');
 
 // --- API FUNCTIONS ---
 async function fetchData(url) {
@@ -45,6 +47,11 @@ function createContentCard(item, mediaType) {
                 <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
                 <span>${rating}</span>
             </div>
+            <div class="card-overlay absolute inset-0 flex items-center justify-center">
+                 <div class="play-button bg-red-500 rounded-full p-4">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" /></svg>
+                 </div>
+            </div>
         </div>
         <div class="p-3">
             <h3 class="font-semibold truncate">${title}</h3>
@@ -66,8 +73,8 @@ function displayContent(items, gridContainer, mediaType) {
     items.forEach(item => gridContainer.appendChild(createContentCard(item, mediaType)));
 }
 
-async function fetchAndDisplayFeatured(mediaType, endpoint) {
-    const url = `${apiUrl}/${mediaType}/${endpoint}?api_key=${apiKey}&language=en-US&page=1`;
+async function fetchAndDisplayFeatured(mediaType, filter) {
+    const url = `${apiUrl}/${mediaType}/${filter}?api_key=${apiKey}&language=en-US&page=1`;
     const data = await fetchData(url);
     if (data && data.results) {
         const gridContainer = mediaType === 'movie' ? featuredMoviesGrid : featuredTvShowsGrid;
@@ -76,30 +83,54 @@ async function fetchAndDisplayFeatured(mediaType, endpoint) {
     }
 }
 
-// --- PATCH NOTES LOGIC ---
-function handlePatchNotes() {
-    if (!patchNotesModal || !closePatchNotes || !dontShowAgainCheckbox) return;
-
-    const lastSeenVersion = localStorage.getItem(PATCH_NOTES_KEY);
-
-    if (lastSeenVersion !== PATCH_NOTES_VERSION) {
-        patchNotesModal.classList.remove('hidden');
-    }
-
-    closePatchNotes.addEventListener('click', () => {
-        if (dontShowAgainCheckbox.checked) {
-            localStorage.setItem(PATCH_NOTES_KEY, PATCH_NOTES_VERSION);
-        }
-        patchNotesModal.classList.add('hidden');
-    });
+function showSearchResults() {
+    searchResultsSection.classList.remove('hidden');
+    featuredMoviesSection.classList.add('hidden');
+    featuredTvShowsSection.classList.add('hidden');
 }
 
-// --- INITIALIZATION ---
+function showHomepage() {
+    searchResultsSection.classList.add('hidden');
+    featuredMoviesSection.classList.remove('hidden');
+    featuredTvShowsSection.classList.remove('hidden');
+}
+
+async function handleSearch() {
+    const searchTerm = searchInput.value.trim();
+    const searchType = searchTypeSelect.value;
+    if (!searchTerm) {
+        showHomepage();
+        return;
+    }
+    const url = `${apiUrl}/search/${searchType}?api_key=${apiKey}&query=${encodeURIComponent(searchTerm)}`;
+    const data = await fetchData(url);
+    if (data) {
+        displayContent(data.results, searchResultsGrid, searchType);
+        showSearchResults();
+    }
+}
+
 async function initializeApp() {
     await fetchAndDisplayFeatured('movie', 'popular');
     await fetchAndDisplayFeatured('tv', 'popular');
-    handlePatchNotes();
+
+    movieFilters.addEventListener('click', (e) => {
+        if (e.target.classList.contains('movie-filter')) {
+            movieFilters.querySelector('.active').classList.remove('active');
+            e.target.classList.add('active');
+            fetchAndDisplayFeatured('movie', e.target.dataset.filter);
+        }
+    });
+
+    tvFilters.addEventListener('click', (e) => {
+        if (e.target.classList.contains('tv-filter')) {
+            tvFilters.querySelector('.active').classList.remove('active');
+            e.target.classList.add('active');
+            fetchAndDisplayFeatured('tv', e.target.dataset.filter);
+        }
+    });
 }
 
-// --- EVENT LISTENERS ---
 document.addEventListener('DOMContentLoaded', initializeApp);
+searchButton.addEventListener('click', handleSearch);
+searchInput.addEventListener('keyup', e => { if (e.key === 'Enter') handleSearch(); });

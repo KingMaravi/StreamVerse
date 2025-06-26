@@ -14,55 +14,59 @@
     <header class="bg-gray-900 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <a href="index.html" class="text-2xl md:text-3xl font-bold text-red-500 tracking-wider">StreamVerse</a>
-            <div class="flex items-center space-x-4">
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="index.html" class="text-white font-semibold">Home</a>
+                <a href="movies.html" class="text-gray-300 hover:text-white transition">Movies</a>
+                <a href="tv-shows.html" class="text-gray-300 hover:text-white transition">TV Shows</a>
+                <a href="favorites.html" class="text-gray-300 hover:text-white transition">My Lists</a>
+            </nav>
+            <div class="md:hidden">
                  <a href="favorites.html" class="text-gray-300 hover:text-white transition">My Lists</a>
-                <div class="w-full max-w-xs relative">
-                    <input type="text" id="searchInput" placeholder="Search..." class="w-full bg-gray-800 text-white border-2 border-gray-700 rounded-full py-2 px-4 focus:outline-none focus:border-red-500 transition duration-300">
-                    <select id="searchType" class="absolute right-20 top-1/2 -translate-y-1/2 bg-gray-700 border border-gray-600 rounded-md text-sm p-1 focus:outline-none">
-                        <option value="movie">Movie</option>
-                        <option value="tv">TV</option>
-                    </select>
-                    <button id="searchButton" class="absolute right-2 top-1/2 -translate-y-1/2 bg-red-500 hover:bg-red-600 rounded-full p-2 transition duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" /></svg>
-                    </button>
-                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Area (Home/Search) -->
+    <!-- Main Content Area -->
     <main id="mainContent" class="container mx-auto px-4 py-8">
-        <section id="searchResults" class="hidden">
-            <h2 class="text-2xl font-semibold mb-6 border-l-4 border-red-500 pl-4">Search Results</h2>
-            <div id="searchResultsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
-        </section>
-        
         <section id="featuredMovies">
-            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+             <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
                 <h2 class="text-2xl font-semibold border-l-4 border-red-500 pl-4">Featured Movies</h2>
-                <div id="movieFilters" class="flex flex-wrap justify-center space-x-2">
-                    <button class="filter-btn movie-filter active" data-filter="popular">Popular</button>
-                    <button class="filter-btn movie-filter" data-filter="now_playing">Now Playing</button>
-                    <button class="filter-btn movie-filter" data-filter="top_rated">Top Rated</button>
-                    <button class="filter-btn movie-filter" data-filter="upcoming">Upcoming</button>
-                </div>
+                 <a href="movies.html" class="text-red-400 hover:text-red-500 transition font-semibold">View All &rarr;</a>
             </div>
             <div id="featuredMoviesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
         </section>
         
         <section id="featuredTvShows" class="mt-12">
-            <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+             <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
                 <h2 class="text-2xl font-semibold border-l-4 border-red-500 pl-4">Featured TV Shows</h2>
-                <div id="tvFilters" class="flex flex-wrap justify-center space-x-2">
-                    <button class="filter-btn tv-filter active" data-filter="popular">Popular</button>
-                    <button class="filter-btn tv-filter" data-filter="on_the_air">On The Air</button>
-                    <button class="filter-btn tv-filter" data-filter="airing_today">Airing Today</button>
-                    <button class="filter-btn tv-filter" data-filter="top_rated">Top Rated</button>
-                </div>
+                 <a href="tv-shows.html" class="text-red-400 hover:text-red-500 transition font-semibold">View All &rarr;</a>
             </div>
             <div id="featuredTvShowsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
         </section>
     </main>
+
+    <!-- Patch Notes Modal -->
+    <div id="patchNotesModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 class="text-2xl font-bold mb-4 text-center">What's New in v1.6.0</h2>
+            <ul class="space-y-2 patch-notes-list mb-6">
+                <li><span class="patch-badge new">NEW</span><strong>Episode Details:</strong> See a preview image, title, and overview for each episode.</li>
+                <li><span class="patch-badge new">NEW</span><strong>Continue Watching:</strong> The player now remembers where you left off in a series.</li>
+                <li><span class="patch-badge new">NEW</span><strong>Autoplay Toggle:</strong> You can now enable or disable autoplay for the next episode.</li>
+                <li><span class="patch-badge improvement">IMPROVEMENT</span>Discover similar titles in the new "Related" section on the player page.</li>
+                <li><span class="patch-badge improvement">IMPROVEMENT</span>The Movies and TV Shows pages now feature a dedicated sidebar for filtering.</li>
+                <li><span class="patch-badge fix">FIX</span>Resolved a bug preventing Favorites and Likes from saving correctly.</li>
+            </ul>
+            <div class="flex items-center justify-between">
+                <label class="flex items-center text-sm text-gray-400">
+                    <input type="checkbox" id="dontShowAgain" class="mr-2 h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500">
+                    Don't show this again
+                </label>
+                <button id="closePatchNotes" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full transition-colors">Got it!</button>
+            </div>
+        </div>
+    </div>
+
 
     <script src="script.js"></script>
 </body>
