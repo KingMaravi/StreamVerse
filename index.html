@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamVerse - Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="text-white">
+
+    <!-- Header Section -->
+    <header class="bg-gray-900 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center space-x-2">
+                <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                <span class="text-2xl md:text-3xl font-bold text-red-500 tracking-wider">StreamVerse</span>
+            </a>
+            <nav class="hidden md:flex items-center space-x-8 main-nav">
+                <a href="index.html" class="active-link">Home</a>
+                <a href="movies.html">Movies</a>
+                <a href="tv-shows.html">TV Shows</a>
+                <a href="favorites.html">My Lists</a>
+            </nav>
+            <div class="md:hidden">
+                 <a href="favorites.html" class="text-gray-300 hover:text-white transition">My Lists</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main id="mainContent" class="container mx-auto px-4 py-8">
+        <!-- Hero Banner Section -->
+        <section id="heroBanner" class="hero-banner mb-12">
+            <div id="heroSlidesWrapper" class="hero-slides-wrapper">
+                <!-- Slides will be injected by JavaScript -->
+            </div>
+            <button id="prevSlideBtn" class="hero-nav-btn left-0">&lt;</button>
+            <button id="nextSlideBtn" class="hero-nav-btn right-0">&gt;</button>
+            <div id="heroDots" class="hero-dots">
+                <!-- Dots will be injected by JavaScript -->
+            </div>
+        </section>
+
+        <section id="featuredMovies">
+             <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                <h2 class="text-2xl font-semibold border-l-4 border-red-500 pl-4">Featured Movies</h2>
+                 <a href="/movies.html" class="text-red-400 hover:text-red-500 transition font-semibold">View All &rarr;</a>
+            </div>
+            <div id="featuredMoviesGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
+        </section>
+        
+        <section id="featuredTvShows" class="mt-12">
+             <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                <h2 class="text-2xl font-semibold border-l-4 border-red-500 pl-4">Featured TV Shows</h2>
+                 <a href="/tv-shows.html" class="text-red-400 hover:text-red-500 transition font-semibold">View All &rarr;</a>
+            </div>
+            <div id="featuredTvShowsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
+        </section>
+    </main>
+
+    <!-- Patch Notes Modal -->
+    <div id="patchNotesModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2 class="text-2xl font-bold mb-4 text-center">Welcome to StreamVerse 2.0!</h2>
+            <ul class="space-y-2 patch-notes-list mb-6">
+                <li><span class="patch-badge new">NEW</span><strong>Dedicated Details Pages:</strong> Movies and TV Shows now have their own rich details pages.</li>
+                <li><span class="patch-badge new">NEW</span><strong>Watch Trailers:</strong> You can now watch trailers directly from the movie and TV show details pages.</li>
+                <li><span class="patch-badge new">NEW</span><strong>Full Episode Picker:</strong> Browse all seasons and episodes for a series on the TV show details page.</li>
+                <li><span class="patch-badge improvement">IMPROVEMENT</span>The homepage banner is now a full carousel featuring 7 trending titles.</li>
+                <li><span class="patch-badge improvement">IMPROVEMENT</span>The navigation bar has been redesigned for a more modern look.</li>
+                <li><span class="patch-badge improvement">IMPROVEMENT</span>The "My Lists" page now separates your recently watched movies and TV shows.</li>
+                <li><span class="patch-badge fix">FIX</span>Resolved multiple layout and styling issues across the site for a more consistent experience.</li>
+            </ul>
+            <div class="flex items-center justify-between">
+                <label class="flex items-center text-sm text-gray-400">
+                    <input type="checkbox" id="dontShowAgain" class="mr-2 h-4 w-4 rounded border-gray-300 text-red-600 focus:ring-red-500">
+                    Don't show this again
+                </label>
+                <button id="closePatchNotes" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full transition-colors">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

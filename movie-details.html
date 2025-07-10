@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamVerse - Movie Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="text-white">
+
+    <!-- Header Section -->
+    <header class="bg-gray-900 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                <span class="text-2xl md:text-3xl font-bold text-red-500 tracking-wider">StreamVerse</span>
+            </a>
+            <nav class="hidden md:flex items-center space-x-8 main-nav">
+                <a href="index.html" >Home</a>
+                <a href="movies.html">Movies</a>
+                <a href="tv-shows.html">TV Shows</a>
+                <a href="favorites.html">My Lists</a>
+            </nav>
+            <div class="md:hidden">
+                 <a href="favorites.html" class="text-gray-300 hover:text-white transition">My Lists</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+        <div id="detailsBackdrop" class="details-backdrop">
+            <div class="details-overlay">
+                <div id="movieDetailsContainer" class="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Poster -->
+                    <div class="md:col-span-1">
+                        <img id="detailsPoster" src="" alt="Movie Poster" class="w-full h-auto rounded-lg shadow-2xl">
+                    </div>
+                    <!-- Details -->
+                    <div class="md:col-span-2">
+                        <h1 id="detailsTitle" class="text-4xl font-bold mb-2"></h1>
+                        <div id="detailsMeta" class="text-sm text-gray-300 mb-4 flex items-center flex-wrap gap-x-4 gap-y-2"></div>
+                        
+                        <div class="flex items-center space-x-4 my-6">
+                            <div id="userScore" class="user-score"></div>
+                            <span class="font-bold">User Score</span>
+                             <button id="likeBtn" class="action-btn action-btn-icon">
+                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333V19a1 1 0 001 1h8a1 1 0 001-1V10.333a2.333 2.333 0 00-1.5-2.237l-1.5-.5a2.5 2.5 0 00-2 0l-1.5.5A2.333 2.333 0 006 10.333zM17 9V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4a1 1 0 001 1h8a1 1 0 001-1z"></path></svg>
+                            </button>
+                            <button id="favoriteBtn" class="action-btn action-btn-icon">
+                               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+                            </button>
+                             <button id="playMovieBtn" class="action-btn action-btn-text">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                                <span>Play Movie</span>
+                            </button>
+                             <button id="watchTrailerBtn" class="action-btn action-btn-text hidden">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z" /><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" /></svg>
+                                <span>Watch Trailer</span>
+                            </button>
+                        </div>
+
+                        <div id="aiVibe" class="text-gray-300 italic my-4"></div>
+
+                        <h2 class="text-2xl font-semibold mb-2 mt-6">Overview</h2>
+                        <p id="detailsOverview" class="text-gray-300"></p>
+
+                        <div id="crewInfo" class="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-6">
+                            <!-- Crew members will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <!-- Related Content Section -->
+        <section id="relatedContentSection" class="container mx-auto px-4 py-8 mt-12 border-t-2 border-gray-800 hidden">
+            <h2 class="text-2xl font-semibold mb-6">Related Movies</h2>
+            <div id="relatedGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                <!-- Related content will be loaded here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Trailer Modal -->
+    <div id="trailerModal" class="modal-overlay hidden">
+        <div class="trailer-modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="trailerTitle" class="text-xl font-bold"></h2>
+                <button id="closeTrailerModal" class="text-3xl font-bold hover:text-red-500 transition">&times;</button>
+            </div>
+            <div id="trailerContainer" class="aspect-w-16 aspect-h-9">
+                <!-- YouTube Iframe will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="movie-details.js"></script>
+</body>
+</html>
