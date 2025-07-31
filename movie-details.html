@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamVerse - Movie Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="text-white">
+
+    <!-- Header Section -->
+    <header class="bg-gray-900 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-2">
+                <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                <span class="text-2xl md:text-3xl font-bold text-red-500 tracking-wider">StreamVerse</span>
+            </a>
+            <nav class="hidden md:flex items-center space-x-8 main-nav">
+                <a href="index.html">Home</a>
+                <a href="trending.html">Trending</a>
+                <a href="movies.html" class="active-link">Movies</a>
+                <a href="tv-shows.html">TV Shows</a>
+                <a href="high-zone.html">The High Zone</a>
+                <a href="favorites.html">My Lists</a>
+            </nav>
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700">
+                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-nav">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Home</a>
+            <a href="trending.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">Trending</a>
+            <a href="movies.html" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900">Movies</a>
+            <a href="tv-shows.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">TV Shows</a>
+            <a href="high-zone.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">The High Zone</a>
+            <a href="favorites.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700">My Lists</a>
+        </div>
+    </div>
+    
+    <main>
+        <div id="detailsBackdrop" class="details-backdrop">
+            <div class="details-overlay">
+                <div id="movieDetailsContainer" class="container mx-auto px-4 py-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="md:col-span-1">
+                        <img id="detailsPoster" src="" alt="Movie Poster" class="w-full h-auto rounded-lg shadow-2xl">
+                    </div>
+                    <div class="md:col-span-2">
+                        <h1 id="detailsTitle" class="text-3xl md:text-4xl font-bold mb-2"></h1>
+                        <div id="detailsMeta" class="text-sm text-gray-300 mb-4 flex items-center flex-wrap gap-x-4 gap-y-2"></div>
+                        
+                        <div class="flex items-center flex-wrap gap-x-6 gap-y-4 my-6">
+                            <div class="flex items-center space-x-2">
+                                <div id="userScore" class="user-score"></div>
+                                <span class="font-bold hidden sm:inline">User Score</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button id="likeBtn" class="action-btn action-btn-icon">
+                                    <span class="icon-outline">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.25,20.12a9.47,9.47,0,0,0,4,.88h4.2a4,4,0,0,0,3.88-3l1.62-6.48A2,2,0,0,0,19,9H16a31.13,31.13,0,0,0,.12-3.77A2.28,2.28,0,0,0,13.82,3h-.05a2.2,2.2,0,0,0-2.15,1.72c-.36,1.5-.74,2.83-1.11,3.92A2,2,0,0,1,8.62,10H7.2"></path>
+                                            <rect x="3" y="9" width="4" height="12"></rect>
+                                        </svg>
+                                    </span>
+                                    <span class="icon-solid">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M7.25,20.12a9.47,9.47,0,0,0,4,.88h4.2a4,4,0,0,0,3.88-3l1.62-6.48A2,2,0,0,0,19,9H16a31.13,31.13,0,0,0,.12-3.77A2.28,2.28,0,0,0,13.82,3h-.05a2.2,2.2,0,0,0-2.15,1.72c-.36,1.5-.74,2.83-1.11,3.92A2,2,0,0,1,8.62,10H7.2V20.12z M3,9 H7v12H3V9z" />
+                                        </svg>
+                                    </span>
+                                </button>
+                                <button id="favoriteBtn" class="action-btn action-btn-icon">
+                                    <span class="icon-outline">
+                                       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                                    </span>
+                                     <span class="icon-solid">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" /></svg>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="flex items-center flex-wrap gap-4">
+                                <button id="playMovieBtn" class="action-btn action-btn-text">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                                    <span>Play Movie</span>
+                                </button>
+                                <button id="watchTrailerBtn" class="action-btn action-btn-text hidden">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z" /><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" /></svg>
+                                    <span>Watch Trailer</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- This content is now moved to the tabs below -->
+                        <div id="mainDetailsContent" class="hidden">
+                            <h2 class="text-2xl font-semibold mb-2 mt-6">Overview</h2>
+                            <p id="detailsOverview" class="text-gray-300"></p>
+                            <div id="crewInfo" class="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-6"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tabbed Content Section -->
+        <div class="container mx-auto px-4 py-8">
+            <div id="detailsTabs" class="border-b border-gray-700">
+                <nav class="flex space-x-2 sm:space-x-4" aria-label="Tabs">
+                    <button data-tab="overview" class="tab-btn active">Overview</button>
+                    <button data-tab="collection" class="tab-btn hidden">In Collection</button>
+                    <button data-tab="related" class="tab-btn hidden">Related Movies</button>
+                </nav>
+            </div>
+            <div class="py-6">
+                <div id="overviewPanel" class="tab-panel">
+                    <!-- Overview content will be injected here -->
+                </div>
+                <div id="collectionPanel" class="tab-panel hidden">
+                     <h2 id="collectionName" class="text-2xl font-semibold mb-6"></h2>
+                     <div id="collectionGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
+                </div>
+                <div id="relatedPanel" class="tab-panel hidden">
+                     <div id="relatedGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="trailerModal" class="modal-overlay hidden">
+        <div class="trailer-modal-content">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="trailerTitle" class="text-xl font-bold"></h2>
+                <button id="closeTrailerModal" class="text-3xl font-bold hover:text-red-500 transition">&times;</button>
+            </div>
+            <div id="trailerContainer" class="aspect-w-16 aspect-h-9"></div>
+        </div>
+    </div>
+
+    <script src="movie-details.js"></script>
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', (e) => {
+                // Stop the click from bubbling up to the document
+                e.stopPropagation();
+                mobileMenu.classList.toggle('open');
+            });
+        }
+
+        // Close the menu if a click is detected outside of it
+        document.addEventListener('click', (e) => {
+            if (mobileMenu && mobileMenu.classList.contains('open')) {
+                const isClickInsideMenu = mobileMenu.contains(e.target);
+                const isClickOnButton = mobileMenuBtn.contains(e.target);
+
+                if (!isClickInsideMenu && !isClickOnButton) {
+                    mobileMenu.classList.remove('open');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
